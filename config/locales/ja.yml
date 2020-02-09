@@ -1,13 +1,17 @@
-Will not apply HSTS. The HSTS database must be a regular and non-world-writable file.
-ERROR: could not open HSTS store at '/home/ishizuka/.wget-hsts'. HSTS will be disabled.
---2020-02-05 22:12:07--  https://raw.githubusercontent.com/svenfuchs/rails-i18n/master/rails/locale/ja.yml
-Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.0.133, 151.101.64.133, 151.101.128.133, ...
-Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.0.133|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 5117 (5.0K) [text/plain]
-Saving to: ‘ja.yml’
-
-     0K ....                                                  100% 72.5K=0.07s
-
-2020-02-05 22:12:15 (72.5 KB/s) - ‘ja.yml’ saved [5117/5117]
-
+ja:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました：%{errors}"
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+    models:
+      task: タスク
+    attributes:
+      task:
+        id: ID
+        name: 名称
+        description: 詳しい説明
+        created_at: 登録日時
+        updated_at: 更新日時
