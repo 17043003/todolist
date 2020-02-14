@@ -23,3 +23,14 @@ table.table.table-hover
       
 = link_to '編集', edit_task_path, class: 'btn btn-primary mr-3'
 = link_to '削除', @task, method: :delete, data: { confirm: "タスク「#{@task.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger'
+
+#map style='width: 800px; height: 400px;'
+
+javascript:
+  var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
+  var Options = {
+  zoom: 15,      //地図の縮尺値
+  center: MyLatLng,    //地図の中心座標
+  mapTypeId: 'roadmap'   //地図の種類
+  };
+  var map = new google.maps.Map(document.getElementById('map'), Options);
