@@ -16,7 +16,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    # userに関連したtaskオブジェクトを代入
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else

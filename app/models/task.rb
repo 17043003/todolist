@@ -3,6 +3,7 @@ class Task < ApplicationRecord
 
     validates :name, presence: true, length: { maximum: 30 }
 
+    belongs_to :user
     
     private
     def set_nameless_name
