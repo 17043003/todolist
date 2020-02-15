@@ -25,6 +25,8 @@ table.table.table-hover
 = link_to '削除', @task, method: :delete, data: { confirm: "タスク「#{@task.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger'
 
 - if @task.place.present?
+  h2#tasks_place = "#{@task.place}周辺の地図"
+  
   #map style='width: 800px; height: 400px; margin: 60px auto;'
 
   javascript:
