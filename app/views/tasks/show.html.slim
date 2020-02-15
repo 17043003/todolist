@@ -24,7 +24,7 @@ table.table.table-hover
 = link_to '編集', edit_task_path, class: 'btn btn-primary mr-3'
 = link_to '削除', @task, method: :delete, data: { confirm: "タスク「#{@task.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger'
 
-#map style='width: 800px; height: 400px;'
+#map style='width: 800px; height: 400px; margin: 60px auto;'
 
 javascript:
   var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
