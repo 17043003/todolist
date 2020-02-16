@@ -1,0 +1,13 @@
+// Place all the styles related to the tasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#map_content {
+    width: 800px;
+    margin-top: 40px;
+
+    #map {
+        width: 900px;
+        height: 500px;
+        margin: 20px auto;
+    }
+}

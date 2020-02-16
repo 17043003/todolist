@@ -1,0 +1,28 @@
+h1 ユーザ登録
+
+.nav.justify-content-end
+  = link_to 'ユーザ一覧', admin_users_path, class: 'nav-link'
+
+= form_with model: [:admin, @user], local: true do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  
+  .form-group
+    = f.label :email
+    = f.text_field :email, class: 'form-control'
+
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: 'form-control'
+
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: 'form-control'
+
+  .form-check
+    = f.label :admin, class: 'form-check-label'
+      = f.check_box :admin, class: 'form-check-input'
+      | 管理者権限
+
+  = f.submit '登録', class: 'btn btn-primary'
