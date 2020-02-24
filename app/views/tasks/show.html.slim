@@ -22,10 +22,10 @@ table.table.table-hover
       td = simple_format(h(@task.description), {}, sanitize: false, wrapper_tag: "div")
     tr
       th = Task.human_attribute_name(:created_at)
-      td = @task.created_at
+      td = @task.created_at.strftime("%Y-%m-%d %H:%M:%S")
     tr
       th = Task.human_attribute_name(:updated_at)
-      td = @task.updated_at
+      td = @task.updated_at.strftime("%Y-%m-%d %H:%M:%S")
       
 = link_to '編集', edit_task_path, class: 'btn btn-primary mr-3'
 = link_to '削除', @task, method: :delete, data: { confirm: "タスク「#{@task.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger'
