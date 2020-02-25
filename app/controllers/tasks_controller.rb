@@ -2,8 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
     @q = current_user.tasks.ransack(params[:q])
-    # @tasks = current_user.tasks.recent_created
-    @tasks = @q.result(distinct: true).recent_created
+    @tasks = @q.result(distinct: true)
   end
 
   def show
