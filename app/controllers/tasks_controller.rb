@@ -41,7 +41,11 @@ class TasksController < ApplicationController
   end
 
   def done
-    @task.done = true
+    if @task.done
+      @task.done = false
+    else
+      @task.done = true
+    end
     @task.save
   end
 

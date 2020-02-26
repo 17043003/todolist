@@ -1,1 +1,3 @@
-document.querySelector("#task-<%= @task.id %>").style = 'text-decoration: line-through';
+taskElement = document.querySelector("#task-<%= @task.id %>");
+
+taskElement.classList.toggle('done');
