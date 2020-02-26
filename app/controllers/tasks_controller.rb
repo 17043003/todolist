@@ -34,15 +34,16 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    if @task.destroy
-      redirect_to tasks_path, notice: "タスク「#{@task.name}」を削除しました。"
-    end
+    # if @task.destroy
+    #   redirect_to tasks_path, notice: "タスク「#{@task.name}」を削除しました。"
+    # end
+    @task.destroy
   end
 
   private
   
   def task_params
-    params.require(:task).permit(:name, :description, :image, :place)
+    params.require(:task).permit(:name, :description, :image, :place, :done)
   end
 
   def set_task

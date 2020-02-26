@@ -1,0 +1,5 @@
+document.querySelector("#task-<%= @task.id %>").style.display = 'none';
+
+let message = document.createElement('p');
+message.innerText = 'タスク「<%= @task.name %>」を削除しました';
+document.querySelector('table').insertAdjacentElement('beforebegin', message);
