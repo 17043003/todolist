@@ -14,7 +14,7 @@
 
   .form-group
     = f.label :deadline
-    = f.datetime_select :deadline, class: 'form-control'
+    = f.datetime_select :deadline, include_blank: true, class: 'form-control'
 
   .form-group
     = f.label :image
