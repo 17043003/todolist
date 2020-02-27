@@ -11,7 +11,7 @@ class Task < ApplicationRecord
     scope :recent_updated, -> { order(updated_at: :desc) }
 
     def self.ransackable_attributes(auth_object = nil)
-      %w[name created_at]
+      %w[name deadline]
     end
 
     def self.ransackable_associations(auth_object = nil)
