@@ -47,4 +47,4 @@ table.table
               = link_to 'タスク完了', done_task_path(task), remote: true, class: 'btn btn-primary mr-5 my-2 col-xl-6 col-12'
 
             = link_to '編集', edit_task_path(task), class: 'btn btn-primary mr-3 my-2 col-xl-2 col-12'
-            = link_to '削除', task, method: :delete, remote: true, data: { confirm: "タスク「#{task.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger my-2 col-xl-2 col-12'
+            = link_to '削除', task, method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger my-2 col-xl-2 col-12'
