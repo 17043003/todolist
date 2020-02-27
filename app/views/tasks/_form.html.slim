@@ -13,6 +13,14 @@
     = f.text_area :description, rows: 5, class: 'form-control', id: 'task_description'
 
   .form-group
+    = f.label :deadline
+    = f.datetime_select :deadline, include_blank: true, class: 'form-control'
+
+  .form-group
+    = f.label :image
+    = f.file_field :image, class: 'form-control'
+
+  .form-group
     = f.label :place
     = f.text_field :place, class: 'form-control', id: 'task_place'
 

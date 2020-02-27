@@ -1,19 +1,51 @@
 h1 タスク一覧
 
-= link_to '新規登録', new_task_path, class: 'btn btn-primary'
+/ cardでパネルを作成
+.card.mb-2
+  .card-body.py-1
+    .card-heading
+      h4.card-title
+        a data-toggle="collapse" href="#collapse1"
+          = "タスク検索"
+    / クリックでアコーディオンが展開する
+    #collapse1.card-collapse.collapse
+      .card-text
+        / 検索フォームを追加
+        = search_form_for @q, class: 'mb-5' do |f|
+          .form-group.row
+            = f.label :name_cont, 'タスク名', class: 'col-sm-1.5 col-form-label'
+            .col-sm-10
+              = f.search_field :name_cont, class: 'form-control'
+          .form-group.row
+            = f.label :deadline_gteq, '日時検索', class: 'col-sm-1.5 col-form-label'
+            .col-sm-10.py-1
+              = f.datetime_select :deadline_gteq, class: 'form-control'
+              = "～"
+              = f.datetime_select :deadline_lteq, class: 'form-control'
+          .form-group
+            = f.submit class: 'btn btn-outline-primary'
+
+= link_to '新規登録', new_task_path, class: 'btn btn-primary mb-3'
 
 .mb-3
-table.table.table-hover
+  = paginate @tasks
+  = page_entries_info @tasks
+
+table.table
   thead.thead-default
     tr
-      th = Task.human_attribute_name(:name)
-      th = Task.human_attribute_name(:created_at)
+      th = sort_link(@q, :name, default: :desc)
+      th = sort_link(@q, :deadline, default: :desc)
       th
     tbody
       - @tasks.each do |task|
-        tr
+        tr id="task-#{task.id}" class="#{'done' if task.done}"
           td = link_to task.name, task 
-          td = task.created_at
+          td = task.deadline&.strftime("%Y-%m-%d %H:%M:%S")
+          / td = task.created_at.strftime("%Y-%m-%d %H:%M:%S")
           td
-            = link_to '編集', edit_task_path(task), class: 'btn btn-primary mr-3'
-            = link_to '削除', task, method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger'
+            span.done-btn
+              = link_to 'タスク完了', done_task_path(task), remote: true, class: 'btn btn-primary mr-5 my-2 col-xl-6 col-12'
+
+            = link_to '編集', edit_task_path(task), class: 'btn btn-primary mr-3 my-2 col-xl-2 col-12'
+            = link_to '削除', task, method: :delete, data: { confirm: "タスク「#{task.name}」を削除します。よろしいですか？" }, class: 'btn btn-danger my-2 col-xl-2 col-12'

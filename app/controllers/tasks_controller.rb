@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :done]
   def index
-    @tasks = current_user.tasks.recent_created
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true).page(params[:page])
   end
 
   def show
@@ -33,15 +34,24 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    if task.destroy
-      redirect_to tasks_path, notice: "タスク「#{task.name}」を削除しました。"
+    if @task.destroy
+      redirect_to tasks_path, notice: "タスク「#{@task.name}」を削除しました。"
     end
+  end
+
+  def done
+    if @task.done
+      @task.done = false
+    else
+      @task.done = true
+    end
+    @task.save
   end
 
   private
   
   def task_params
-    params.require(:task).permit(:name, :description, :place)
+    params.require(:task).permit(:name, :description, :image, :place, :done, :deadline)
   end
 
   def set_task

@@ -13,7 +13,9 @@ ja:
       task:
         id: ID
         name: 名称
+        deadline: 締め切り日
         description: 詳しい説明
+        image: 画像
         place: 場所
         created_at: 登録日時
         updated_at: 更新日時
