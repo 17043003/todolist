@@ -1,2 +1,9 @@
-h1 Accounts#edit
-p Find me in app/views/accounts/edit.html.slim
+h1 = "#{@user.name}さんのアカウント情報編集画面"
+
+- if @user.errors.present?
+  ul#error_explanation
+    - @user.errors.full_messages.each do |message|
+      li = message
+
+= form_with model: @user, url: account_path, method: :patch, scope: :account, local: true do |f|
+  == render partial: 'admin/users/form', locals: { user: @user, f: f }

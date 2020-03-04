@@ -1,3 +1,5 @@
-h1 アカウントページ
+h1 = "#{@user.name}さんのアカウントページ"
 
 == render 'user_info', user: @user
+
+= link_to '編集', edit_account_path, class: 'btn btn-primary mr-3'
