@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'accounts/show'
+  get 'accounts/edit'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
