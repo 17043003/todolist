@@ -3,14 +3,17 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  root to: 'tasks#index'
+
   namespace :admin do
     resources :users
   end
-  root to: 'tasks#index'
 
   resources :tasks do
     member do
       get :done
     end
   end
+
+  resource :account, only: [:show, :edit, :update]
 end
