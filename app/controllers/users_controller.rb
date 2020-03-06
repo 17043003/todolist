@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
+      SignupMailer.creation_mail(@user).deliver_now
       redirect_to :root, notice: "#{@user.name}さんを登録しました"
     else
       render :new
