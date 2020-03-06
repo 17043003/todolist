@@ -10,3 +10,5 @@ h1 ログイン画面
     = f.password_field :password, class: 'form-control', id: 'session_password'
 
   = f.submit 'ログイン', class: 'btn btn-primary'
+
+  = link_to 'ユーザ登録', users_new_path
