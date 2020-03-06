@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get 'users/new'
-  post 'users/create'
+  post '/users', to: 'users#create'
 
   root to: 'tasks#index'
 
@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   end
 
   resource :account, only: [:show, :edit, :update]
+
+  get '/users' => redirect('/users/new')
 end

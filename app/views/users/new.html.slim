@@ -1,2 +1,18 @@
-h1 Users#new
-p Find me in app/views/users/new.html.slim
+h1 ユーザ登録
+
+- if @user.errors.presence
+- @user.errors.full_messages.each do |message|
+    .alert.alert-success = message
+
+= form_with model: @user, local: true do |f|
+  == render 'admin/users/form', f: f
+
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: 'form-control'
+
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: 'form-control'
+
+  = f.submit '登録', class: 'btn btn-primary'
