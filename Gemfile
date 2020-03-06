@@ -79,3 +79,5 @@ gem 'kaminari'
 # to use s3 in aws
 gem 'mini_magick'
 gem 'aws-sdk-s3', require: false
+
+gem 'rails_autolink'
