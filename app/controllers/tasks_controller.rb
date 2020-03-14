@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :done]
   def index
     if params[:tag].present?
-      tag_included_tasks = current_user.tasks.where(id: params[:tag])
+      tag_included_tasks = current_user.tasks.where(tag_id: params[:tag])
     else
       tag_included_tasks = current_user.tasks
     end
@@ -12,7 +12,7 @@ class TasksController < ApplicationController
 
     if current_user.tags.present?
       @user_tags = current_user.tags.map { |tag| [tag.name, tag.id] }
-      @user_tags.push(["全て", nil]) # タスクを全て表示するオプション
+      @user_tags.unshift(["全て", nil]) # タスクを全て表示するオプション
     else
       @user_tags = ["全て", nil] # タスクを全て表示するオプション
     end
@@ -23,15 +23,29 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+
+    # tagを取得
+    if current_user.tags.present?
+      @user_tags = current_user.tags.map { |tag| [tag.name, tag.id] }
+      @user_tags.unshift(["未設定", nil]) # タスクを全て表示するオプション
+    else
+      @user_tags = ["未設定", nil] # タスクを全て表示するオプション
+    end
   end
 
   def edit
+    if current_user.tags.present?
+      @user_tags = current_user.tags.map { |tag| [tag.name, tag.id] }
+      @user_tags.unshift(["未設定", nil]) # タスクを全て表示するオプション
+    else
+      @user_tags = ["未設定", nil] # タスクを全て表示するオプション
+    end
   end
 
   def create
     # userに関連したtaskオブジェクトを代入
     @task = current_user.tasks.new(task_params)
-    if @task.save
+    if @task.save!
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else
       render :new
@@ -64,7 +78,7 @@ class TasksController < ApplicationController
   private
   
   def task_params
-    params.require(:task).permit(:name, :description, :image, :place, :done, :deadline)
+    params.require(:task).permit(:name, :description, :tag_id, :image, :place, :done, :deadline)
   end
 
   def set_task
