@@ -6,7 +6,7 @@ class Task < ApplicationRecord
     validates :name, presence: true, length: { maximum: 30 }
 
     belongs_to :user
-    belongs_to :tag
+    # belongs_to :tag
     
     scope :recent_created, -> { order(created_at: :desc) }
     scope :recent_updated, -> { order(updated_at: :desc) }
