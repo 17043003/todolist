@@ -25,28 +25,30 @@ class TasksController < ApplicationController
   end
 
   def show
-    # google geocode apiで場所の緯度経度を取得
-    geo_endpoint = "https://maps.googleapis.com/maps/api/geocode/json?address=#{@task.place}&key=#{ENV['KEY']}"
+    if @task.place.present?
+      # google geocode apiで場所の緯度経度を取得
+      geo_endpoint = "https://maps.googleapis.com/maps/api/geocode/json?address=#{@task.place}&key=#{ENV['KEY']}"
 
-    uri = URI.parse(URI.encode(geo_endpoint))
+      uri = URI.parse(URI.encode(geo_endpoint))
 
-    response = Net::HTTP.get_response(uri)
-    response_body = JSON.parse(response.read_body)
+      response = Net::HTTP.get_response(uri)
+      response_body = JSON.parse(response.read_body)
 
-    lat = response_body['results'][0]['geometry']['location']['lat']
-    lng = response_body['results'][0]['geometry']['location']['lng']
+      lat = response_body['results'][0]['geometry']['location']['lat']
+      lng = response_body['results'][0]['geometry']['location']['lng']
 
 
-    # heartrails apiを利用し、最寄り駅の緯度経度を取得
-    heart_endpoint = "http://express.heartrails.com/api/json?method=getStations&x=#{lng}&y=#{lat}"
+      # heartrails apiを利用し、最寄り駅の緯度経度を取得
+      heart_endpoint = "http://express.heartrails.com/api/json?method=getStations&x=#{lng}&y=#{lat}"
 
-    uri = URI(heart_endpoint)
+      uri = URI(heart_endpoint)
 
-    response = Net::HTTP.get_response(uri)
-    response_body = JSON.parse(response.read_body)
-    @station = response_body['response']['station'][0]
-    @station_lat = @station['y']
-    @station_lng = @station['x']
+      response = Net::HTTP.get_response(uri)
+      response_body = JSON.parse(response.read_body)
+      @station = response_body['response']['station'][0]
+      @station_lat = @station['y']
+      @station_lng = @station['x']
+    end
   end
 
   def new
