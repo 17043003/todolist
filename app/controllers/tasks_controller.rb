@@ -47,7 +47,20 @@ class TasksController < ApplicationController
   def create
     # userに関連したtaskオブジェクトを代入
     @task = current_user.tasks.new(task_params)
-    if @task.save!
+
+    # 既存のタグが入力されていればオブジェクトを代入する
+    existed_tag = current_user.tags.find_by(name: tag_params[:new_tag_name])
+
+    # フォームに入力されたタグが存在しないとき、タグを保存する
+    if !existed_tag
+      new_tag = current_user.tags.new(name: tag_params[:new_tag_name])
+      new_tag.save
+      @task.tag_id = new_tag.id
+    else
+      @task.tag_id = existed_tag.id
+    end
+
+    if @task.save
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else
       render :new
@@ -81,6 +94,10 @@ class TasksController < ApplicationController
   
   def task_params
     params.require(:task).permit(:name, :description, :tag_id, :image, :place, :done, :deadline)
+  end
+
+  def tag_params
+    params.require(:task).permit(:new_tag_name)
   end
 
   def set_task

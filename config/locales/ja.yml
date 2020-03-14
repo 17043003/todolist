@@ -19,6 +19,8 @@ ja:
         place: 場所
         created_at: 登録日時
         updated_at: 更新日時
+        tag_id: タグ
+        new_tag_name: 新しいタグ
       user:
         name: 名前
         email: メールアドレス
