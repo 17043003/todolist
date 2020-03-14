@@ -40,6 +40,8 @@ table.table.table-hover
 - if @task.place.present?
   #map_content
     h2#tasks_place = "#{@task.place}周辺の地図"
+
+    h3 = "最寄り駅：#{@station['line']} #{@station['name']}駅"
     
     / 場所を格納した変数をjavascriptに渡す
     #map data-place-id="#{{@task.place}}" data-station-lat="#{{@station_lat}}" data-station-lng="#{{@station_lng}}"
@@ -82,6 +84,20 @@ table.table.table-hover
             marker2 = new google.maps.Marker({
               position: stationLatLng,
               map: map
+            });
+
+            var infoWindow1 = new google.maps.InfoWindow({ // 吹き出しの追加
+              content: '<div class="sample">目的地</div>' // 吹き出しに表示する内容
+            });
+            marker1.addListener('click', function() { // マーカーをクリックしたとき
+              infoWindow1.open(map, marker1); // 吹き出しの表示
+            });
+
+            var infoWindow2 = new google.maps.InfoWindow({ // 吹き出しの追加
+              content: '<div class="sample">最寄り駅</div>' // 吹き出しに表示する内容
+            });
+            marker2.addListener('click', function() { // マーカーをクリックしたとき
+              infoWindow2.open(map, marker2); // 吹き出しの表示
             });
 
             map.setCenter(mark);
