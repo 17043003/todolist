@@ -28,10 +28,11 @@ h1 タスク一覧
 = link_to '新規登録', new_task_path, class: 'btn btn-primary mb-3'
 
 / タグで絞込
-p = @user_tags
-= form_with url: tasks_path, method: :get, local: true do |f|
-  = f.select(:tag, @user_tags)
-  = f.submit "変更"
+.tag-form.mb-3
+  = "タグで絞り込み："
+  = form_with url: tasks_path, method: :get, local: true do |f|
+    = f.select(:tag, @user_tags)
+    = f.submit "変更"
 
 .mb-3
   = paginate @tasks
