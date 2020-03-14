@@ -6,9 +6,6 @@ h1 タスクの詳細
 table.table.table-hover
   tbody
     tr
-      th = Task.human_attribute_name(:id)
-      td = @task.id
-    tr
       th = Task.human_attribute_name(:name)
       td = @task.name
 
