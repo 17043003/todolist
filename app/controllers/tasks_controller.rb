@@ -1,8 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :done]
   def index
+    @selected_tag = nil
     if params[:tag].present?
       tag_included_tasks = current_user.tasks.where(tag_id: params[:tag])
+      @selected_tag = params[:tag]
     else
       tag_included_tasks = current_user.tasks
     end

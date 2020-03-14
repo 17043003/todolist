@@ -31,7 +31,7 @@ h1 タスク一覧
 .tag-form.mb-3
   = "タグで絞り込み："
   = form_with url: tasks_path, method: :get, local: true do |f|
-    = f.select(:tag, @user_tags)
+    = f.select(:tag, @user_tags, selected: @selected_tag)
     = f.submit "変更"
 
 .mb-3
