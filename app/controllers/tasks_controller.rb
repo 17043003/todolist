@@ -1,8 +1,21 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy, :done]
   def index
-    @q = current_user.tasks.ransack(params[:q])
+    if params[:tag].present?
+      tag_included_tasks = current_user.tasks.where(id: params[:tag])
+    else
+      tag_included_tasks = current_user.tasks
+    end
+
+    @q = tag_included_tasks.ransack(params[:q])
     @tasks = @q.result(distinct: true).page(params[:page])
+
+    if current_user.tags.present?
+      @user_tags = current_user.tags.map { |tag| [tag.name, tag.id] }
+      @user_tags.push(["全て", nil]) # タスクを全て表示するオプション
+    else
+      @user_tags = ["全て", nil] # タスクを全て表示するオプション
+    end
   end
 
   def show
